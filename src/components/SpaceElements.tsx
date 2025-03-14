@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Bot, Globe, Rocket, Star, Sparkles } from 'lucide-react';
+import { createRoot } from 'react-dom/client';
 
 interface SpaceElementsProps {
   className?: string;
@@ -16,7 +17,7 @@ const SpaceElements: React.FC<SpaceElementsProps> = ({ className = '' }) => {
     // Create space elements with icons
     const createSpaceElement = (icon: JSX.Element, delay: number, duration: number) => {
       const element = document.createElement('div');
-      const reactRoot = document.createRoot(element);
+      const reactRoot = createRoot(element);
       reactRoot.render(icon);
       
       element.className = 'absolute opacity-10 text-white transform-gpu';
