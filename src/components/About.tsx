@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { skills, testimonials } from '@/lib/constants';
-import { Bot, Planet, Rocket, Quote } from 'lucide-react';
+import { Bot, Globe, Rocket, Quote } from 'lucide-react';
 
 const About: React.FC = () => {
   const animationRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ const About: React.FC = () => {
     
     // Create planets and robots floating in background
     const icons = [
-      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-planet"><path d="M17.5 12a5.5 5.5 0 1 1-5.5-5.5 5.5 5.5 0 0 1 5.5 5.5Z"/><path d="M2.24 7.88a13.94 13.94 0 0 0 0 8.24M21.76 7.88a13.94 13.94 0 0 1 0 8.24"/><path d="M7.86 2.23a13.95 13.95 0 0 0-5.62 5.65M16.14 2.23a13.95 13.95 0 0 1 5.62 5.65"/><path d="M7.86 21.77a13.95 13.95 0 0 1-5.62-5.65M16.14 21.77a13.95 13.95 0 0 0 5.62-5.65"/></svg>',
+      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>',
       '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>',
       '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rocket"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>'
     ];
@@ -79,7 +79,7 @@ const About: React.FC = () => {
           <div className="relative animate-on-scroll">
             {/* Decorative elements */}
             <Bot className="absolute -top-8 -left-6 w-12 h-12 text-primary/30 animate-float" style={{animationDuration: '6s'}} />
-            <Planet className="absolute -bottom-10 -right-8 w-16 h-16 text-primary/20 animate-float" style={{animationDuration: '8s'}} />
+            <Globe className="absolute -bottom-10 -right-8 w-16 h-16 text-primary/20 animate-float" style={{animationDuration: '8s'}} />
             <Rocket className="absolute top-1/3 -right-10 w-10 h-10 text-primary/25 animate-float" style={{animationDuration: '7s'}} />
             
             <div className="aspect-[4/5] rounded-2xl overflow-hidden glass-panel">
