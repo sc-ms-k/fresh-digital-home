@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { skills, testimonials } from '@/lib/constants';
 import { Bot, Globe, Rocket, Quote } from 'lucide-react';
+import SpaceElements from './SpaceElements';
 
 const About: React.FC = () => {
   const animationRef = useRef<HTMLDivElement>(null);
@@ -47,11 +48,18 @@ const About: React.FC = () => {
 
   return (
     <section id="about" className="section relative overflow-hidden">
-      {/* Gradient background overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-pink-500/20 z-0"></div>
+      {/* Gradient background inspired by the provided image */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-950 via-purple-900 to-fuchsia-900 z-0"></div>
+      
+      {/* Additional glowing orbs */}
+      <div className="absolute top-1/4 left-1/5 w-80 h-80 rounded-full bg-purple-500/20 filter blur-[90px] z-0"></div>
+      <div className="absolute bottom-1/4 right-1/5 w-64 h-64 rounded-full bg-blue-500/20 filter blur-[70px] z-0"></div>
       
       {/* Animation container for planets and robots */}
       <div ref={animationRef} className="absolute inset-0 z-0 overflow-hidden"></div>
+      
+      {/* Additional space elements */}
+      <SpaceElements className="opacity-50" />
       
       <div className="container-wide relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

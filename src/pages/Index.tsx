@@ -8,6 +8,8 @@ import Services from '@/components/Services';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import TransitionEffect from '@/components/TransitionEffect';
+import Fireworks from '@/components/Fireworks';
+import SpaceElements from '@/components/SpaceElements';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -38,6 +40,13 @@ const Index: React.FC = () => {
   return (
     <div className="page-transition-wrapper">
       <TransitionEffect />
+      
+      {/* Fireworks animation */}
+      <Fireworks />
+      
+      {/* Space elements animation */}
+      <SpaceElements />
+      
       <Navbar />
       <main>
         <Hero />
