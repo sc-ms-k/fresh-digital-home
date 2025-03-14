@@ -32,6 +32,52 @@ const Index: React.FC = () => {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     animatedElements.forEach((el) => observer.observe(el));
 
+    // Custom animation for headings to make them 3D and gradient
+    const styleHeadings = () => {
+      const headings = document.querySelectorAll('h2, h3');
+      headings.forEach((heading, index) => {
+        heading.classList.add('gradient-heading');
+        
+        // Different gradient styles for variety
+        const gradientStyles = [
+          'linear-gradient(to right, #9b87f5, #d946ef)',
+          'linear-gradient(to right, #7E69AB, #8B5CF6)',
+          'linear-gradient(to right, #0EA5E9, #6366f1)',
+          'linear-gradient(to right, #D946EF, #F97316)'
+        ];
+        
+        const style = gradientStyles[index % gradientStyles.length];
+        
+        heading.setAttribute('style', `
+          background: ${style};
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+          transform-style: preserve-3d;
+          transition: transform 0.5s ease;
+        `);
+        
+        // Add hover effect
+        heading.addEventListener('mousemove', (e) => {
+          const rect = heading.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const rotateX = (y - rect.height / 2) / 20;
+          const rotateY = (rect.width / 2 - x) / 20;
+          
+          heading.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+        });
+        
+        heading.addEventListener('mouseleave', () => {
+          heading.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+        });
+      });
+    };
+    
+    // Apply 3D effects to headings
+    setTimeout(styleHeadings, 500);
+
     return () => {
       animatedElements.forEach((el) => observer.unobserve(el));
     };
@@ -41,11 +87,11 @@ const Index: React.FC = () => {
     <div className="page-transition-wrapper">
       <TransitionEffect />
       
-      {/* Fireworks animation */}
-      <Fireworks />
+      {/* Fireworks animation - increased frequency and size */}
+      <Fireworks frequency={0.2} particleCount={100} size={3} />
       
-      {/* Global space elements animation - make it visible on all pages */}
-      <SpaceElements />
+      {/* Global space elements animation - prominent on all pages */}
+      <SpaceElements className="fixed" />
       
       <Navbar />
       <main>
