@@ -44,7 +44,7 @@ const Index: React.FC = () => {
       {/* Fireworks animation */}
       <Fireworks />
       
-      {/* Space elements animation */}
+      {/* Global space elements animation - make it visible on all pages */}
       <SpaceElements />
       
       <Navbar />

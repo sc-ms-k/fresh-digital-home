@@ -20,12 +20,12 @@ const SpaceElements: React.FC<SpaceElementsProps> = ({ className = '' }) => {
       const reactRoot = createRoot(element);
       reactRoot.render(icon);
       
-      element.className = 'absolute opacity-10 text-white transform-gpu';
+      element.className = 'absolute opacity-30 text-white transform-gpu';
       element.style.animation = `float ${duration}s ease-in-out infinite`;
       element.style.animationDelay = `${delay}s`;
       element.style.top = `${Math.random() * 100}%`;
       element.style.left = `${Math.random() * 100}%`;
-      element.style.fontSize = `${Math.random() * 20 + 20}px`;
+      element.style.fontSize = `${Math.random() * 30 + 30}px`; // Increased size
       
       container.appendChild(element);
       return element;
@@ -35,9 +35,9 @@ const SpaceElements: React.FC<SpaceElementsProps> = ({ className = '' }) => {
     const elements = [];
     
     // Bots
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) { // Increased count
       const element = createSpaceElement(
-        <Bot className="text-primary/30" />,
+        <Bot className="text-primary/50" />, // Increased opacity
         Math.random() * 5,
         3 + Math.random() * 7
       );
@@ -45,9 +45,9 @@ const SpaceElements: React.FC<SpaceElementsProps> = ({ className = '' }) => {
     }
     
     // Globes
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) { // Increased count
       const element = createSpaceElement(
-        <Globe className="text-primary/20" />,
+        <Globe className="text-primary/40" />, // Increased opacity
         Math.random() * 5,
         3 + Math.random() * 7
       );
@@ -55,9 +55,9 @@ const SpaceElements: React.FC<SpaceElementsProps> = ({ className = '' }) => {
     }
     
     // Rockets
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 4; i++) { // Increased count
       const element = createSpaceElement(
-        <Rocket className="text-primary/25" />,
+        <Rocket className="text-primary/45" />, // Increased opacity
         Math.random() * 5,
         3 + Math.random() * 7
       );
@@ -65,9 +65,9 @@ const SpaceElements: React.FC<SpaceElementsProps> = ({ className = '' }) => {
     }
     
     // Stars
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 8; i++) { // Increased count
       const element = createSpaceElement(
-        <Star className="text-primary/15" />,
+        <Star className="text-primary/35" />, // Increased opacity
         Math.random() * 5,
         3 + Math.random() * 7
       );
@@ -75,9 +75,9 @@ const SpaceElements: React.FC<SpaceElementsProps> = ({ className = '' }) => {
     }
     
     // Sparkles
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) { // Increased count
       const element = createSpaceElement(
-        <Sparkles className="text-primary/20" />,
+        <Sparkles className="text-primary/40" />, // Increased opacity
         Math.random() * 5,
         3 + Math.random() * 7
       );
