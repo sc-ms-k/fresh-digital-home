@@ -1,7 +1,17 @@
 
 import React, { useEffect, useRef } from 'react';
 
-const Fireworks: React.FC = () => {
+interface FireworksProps {
+  frequency?: number;
+  particleCount?: number;
+  size?: number;
+}
+
+const Fireworks: React.FC<FireworksProps> = ({ 
+  frequency = 0.4, 
+  particleCount = 150, 
+  size = 6 
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
   useEffect(() => {
@@ -11,16 +21,10 @@ const Fireworks: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    // Set canvas dimensions
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    
-    // Firework particles
+    // Fireworks particle class
     class Particle {
       x: number;
       y: number;
@@ -34,8 +38,8 @@ const Fireworks: React.FC = () => {
         this.x = x;
         this.y = y;
         this.size = size;
-        this.speedX = (Math.random() - 0.5) * 8; // Increased speed
-        this.speedY = (Math.random() - 0.5) * 8; // Increased speed
+        this.speedX = Math.random() * 6 - 3;
+        this.speedY = Math.random() * 6 - 3;
         this.color = color;
         this.alpha = 1;
       }
@@ -43,111 +47,86 @@ const Fireworks: React.FC = () => {
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        this.alpha -= 0.008; // Slower fade for longer visibility
-        this.size = Math.max(0, this.size - 0.08);
+        this.alpha -= 0.01;
+        this.speedY += 0.05; // Gravity effect
       }
       
-      draw(ctx: CanvasRenderingContext2D) {
-        ctx.save();
+      draw() {
         ctx.globalAlpha = this.alpha;
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
-        ctx.restore();
       }
     }
     
-    class Firework {
-      particles: Particle[];
-      isActive: boolean;
+    let particles: Particle[] = [];
+    
+    // Create a firework explosion
+    function createFirework(x: number, y: number) {
+      const colors = [
+        '#ff0000', '#ff7700', '#ffff00', '#00ff00', '#0000ff', '#ff00ff',
+        '#00ffff', '#ffffff', '#ff00aa', '#aa00ff', '#ffaa00'
+      ];
       
-      constructor(x: number, y: number) {
-        this.particles = [];
-        this.isActive = true;
-        
-        // Create particles
-        const particleCount = 150; // Increased particle count
-        const colors = ['#ff69b4', '#87cefa', '#7fff00', '#ff4500', '#ffd700', '#ba55d3'];
-        
-        for (let i = 0; i < particleCount; i++) {
-          const size = Math.random() * 4 + 2; // Increased particle size
-          const color = colors[Math.floor(Math.random() * colors.length)];
-          this.particles.push(new Particle(x, y, size, color));
-        }
-      }
-      
-      update() {
-        this.particles.forEach(particle => particle.update());
-        this.particles = this.particles.filter(particle => particle.alpha > 0);
-        
-        if (this.particles.length === 0) {
-          this.isActive = false;
-        }
-      }
-      
-      draw(ctx: CanvasRenderingContext2D) {
-        this.particles.forEach(particle => particle.draw(ctx));
+      for (let i = 0; i < particleCount; i++) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(
+          x, 
+          y, 
+          Math.random() * size + 1, 
+          color
+        ));
       }
     }
-    
-    // Fireworks array
-    const fireworks: Firework[] = [];
-    
-    // Create a firework at a random position
-    const createFirework = () => {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height * 0.6; // Cover more of the screen
-      fireworks.push(new Firework(x, y));
-    };
-    
-    // Periodically create fireworks - more frequently
-    const fireworkInterval = setInterval(() => {
-      if (document.visibilityState === 'visible') {
-        createFirework();
-      }
-    }, 600); // Reduced interval from 1000ms to 600ms
     
     // Animation loop
-    let animationId: number;
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function animate() {
+      // Add slight transparency for trails
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Update and draw fireworks
-      fireworks.forEach(firework => {
-        firework.update();
-        firework.draw(ctx);
-      });
+      // Randomly create fireworks based on frequency
+      if (Math.random() < frequency / 60) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height * 0.5;
+        createFirework(x, y);
+      }
       
-      // Remove inactive fireworks
-      const activeFireworks = fireworks.filter(firework => firework.isActive);
-      fireworks.length = 0;
-      fireworks.push(...activeFireworks);
+      // Update and draw particles
+      for (let i = 0; i < particles.length; i++) {
+        if (particles[i].alpha > 0) {
+          particles[i].update();
+          particles[i].draw();
+        } else {
+          particles.splice(i, 1);
+          i--;
+        }
+      }
       
-      animationId = requestAnimationFrame(animate);
-    };
+      requestAnimationFrame(animate);
+    }
     
     animate();
     
-    // Create initial fireworks - more of them
-    for (let i = 0; i < 5; i++) { // Increased from 3 to 5
-      createFirework();
-    }
-    
-    // Cleanup
-    return () => {
-      cancelAnimationFrame(animationId);
-      clearInterval(fireworkInterval);
-      window.removeEventListener('resize', resizeCanvas);
+    // Handle window resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
-  }, []);
+    
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [frequency, particleCount, size]);
   
   return (
     <canvas 
       ref={canvasRef} 
-      className="fixed inset-0 pointer-events-none z-20 opacity-80" // Increased opacity from 70 to 80
-      aria-hidden="true"
-    />
+      className="fixed inset-0 z-10 pointer-events-none"
+    ></canvas>
   );
 };
 

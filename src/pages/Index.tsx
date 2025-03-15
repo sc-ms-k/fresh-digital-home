@@ -48,47 +48,47 @@ const Index: React.FC = () => {
         
         const style = gradientStyles[index % gradientStyles.length];
         
-        heading.setAttribute('style', `
-          background: ${style};
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          text-shadow: 0 4px 8px rgba(0,0,0,0.2);
-          transform-style: preserve-3d;
-          transition: transform 0.5s ease;
-        `);
+        // Fix: Cast to HTMLElement to access style property
+        const headingElement = heading as HTMLElement;
+        headingElement.style.background = style;
+        headingElement.style.webkitBackgroundClip = 'text';
+        headingElement.style.webkitTextFillColor = 'transparent';
+        headingElement.style.textShadow = '0 4px 8px rgba(0,0,0,0.2)';
+        headingElement.style.transformStyle = 'preserve-3d';
+        headingElement.style.transition = 'transform 0.5s ease';
         
         // Add hover effect and floating animation
         const animateHeading = (e: MouseEvent) => {
-          const rect = heading.getBoundingClientRect();
+          const rect = headingElement.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
           
           const rotateX = (y - rect.height / 2) / 20;
           const rotateY = (rect.width / 2 - x) / 20;
           
-          heading.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+          headingElement.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
         };
         
         const resetHeading = () => {
           // Don't completely reset, keep a subtle animation
           const floatY = Math.sin(Date.now() / 2000) * 5;
-          heading.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(${floatY}px) translateZ(10px)`;
+          headingElement.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(${floatY}px) translateZ(10px)`;
         };
         
         // Apply floating animation to all headings
         const floatHeading = () => {
-          if (!heading.matches(':hover')) {
+          if (!headingElement.matches(':hover')) {
             const floatY = Math.sin(Date.now() / 2000) * 5;
             const rotateX = Math.sin(Date.now() / 3000) * 1;
             const rotateY = Math.sin(Date.now() / 3500) * 1;
             
-            heading.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(${floatY}px) translateZ(10px)`;
+            headingElement.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(${floatY}px) translateZ(10px)`;
           }
           requestAnimationFrame(floatHeading);
         };
         
-        heading.addEventListener('mousemove', animateHeading as EventListener);
-        heading.addEventListener('mouseleave', resetHeading);
+        headingElement.addEventListener('mousemove', animateHeading);
+        headingElement.addEventListener('mouseleave', resetHeading);
         
         // Start the floating animation
         floatHeading();
@@ -104,8 +104,10 @@ const Index: React.FC = () => {
       // Clean up event listeners
       const headings = document.querySelectorAll('h2, h3');
       headings.forEach((heading) => {
-        heading.removeEventListener('mousemove', heading.onmousemove as EventListener);
-        heading.removeEventListener('mouseleave', heading.onmouseleave as EventListener);
+        // Fix: Cast to HTMLElement to access properties
+        const headingElement = heading as HTMLElement;
+        headingElement.removeEventListener('mousemove', headingElement.onmousemove as EventListener);
+        headingElement.removeEventListener('mouseleave', headingElement.onmouseleave as EventListener);
       });
     };
   }, []);
