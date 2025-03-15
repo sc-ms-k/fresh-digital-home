@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Code, Server, Database } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const scrollToWork = () => {
@@ -45,10 +45,21 @@ const Hero: React.FC = () => {
       <div className="absolute bottom-1/2 left-1/3 w-72 h-72 rounded-full bg-cyan-500/30 filter blur-[90px] animate-pulse z-0" style={{animationDelay: '1.5s'}}></div>
       
       <div className="container-wide relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block px-3 py-1 rounded-full bg-secondary/80 text-sm font-medium mb-6 animate-fade-in backdrop-blur-sm">
-            Digital Designer & Developer
-          </span>
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="flex justify-center gap-4 mb-6 animate-fade-in">
+            <span className="inline-flex items-center px-4 py-1 rounded-full bg-primary/10 text-sm font-medium backdrop-blur-sm">
+              <Code className="w-4 h-4 mr-2" />
+              Frontend Development
+            </span>
+            <span className="inline-flex items-center px-4 py-1 rounded-full bg-primary/10 text-sm font-medium backdrop-blur-sm">
+              <Server className="w-4 h-4 mr-2" />
+              Backend Architecture
+            </span>
+            <span className="inline-flex items-center px-4 py-1 rounded-full bg-primary/10 text-sm font-medium backdrop-blur-sm">
+              <Database className="w-4 h-4 mr-2" />
+              Database Design
+            </span>
+          </div>
           
           {/* 3D Gradient Heading with animation */}
           <h1 className="hero-heading heading-xl mb-6 animate-slide-from-bottom transition-transform duration-1000 ease-out"
@@ -63,7 +74,7 @@ const Hero: React.FC = () => {
                 perspective: '1000px',
                 transform: 'translateZ(20px)',
               }}>
-            Crafting digital experiences that inspire
+            Full Stack Engineer & Digital Architect
           </h1>
           
           {/* Gradient subtext */}
@@ -73,38 +84,55 @@ const Hero: React.FC = () => {
                textShadow: '0 2px 4px rgba(0,0,0,0.3)',
                background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 100%)',
              }}>
-            I design and build modern, elegant websites and digital products that help brands stand out in the digital landscape.
+            I craft robust, scalable digital solutions that seamlessly integrate frontend and backend technologies. 
+            With expertise in modern web frameworks, cloud infrastructure, and database optimization, 
+            I build applications that drive business growth and deliver exceptional user experiences.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-from-bottom" style={{ animationDelay: '600ms' }}>
             <button 
-              onClick={scrollToWork}
-              className="button-hover-effect inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium transition-all hover:shadow-lg"
+              onClick={() => {
+                const experienceSection = document.getElementById('experience');
+                if (experienceSection) {
+                  const yOffset = -100;
+                  const y = experienceSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
+              className="button-3d button-hover-effect inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium transition-all hover:shadow-lg"
               style={{
                 background: 'linear-gradient(90deg, #8b5cf6 0%, #6366f1 100%)',
                 boxShadow: '0 4px 14px 0 rgba(139, 92, 246, 0.4)',
               }}
             >
-              View My Work
+              View Experience
               <ArrowDown className="w-4 h-4" />
             </button>
             
             <button 
-              onClick={() => {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  const yOffset = -100;
-                  const y = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                  window.scrollTo({ top: y, behavior: 'smooth' });
-                }
-              }}
-              className="button-hover-effect inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium border border-white/20 hover:bg-white/20"
+              onClick={scrollToWork}
+              className="button-3d button-hover-effect inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium border border-white/20 hover:bg-white/20"
               style={{
                 boxShadow: '0 4px 14px 0 rgba(255, 255, 255, 0.1)',
               }}
             >
-              Get in Touch
+              View Projects
             </button>
+          </div>
+          
+          <div className="mt-12 flex flex-wrap justify-center gap-6">
+            <div className="text-center">
+              <div className="text-4xl font-bold gradient-text">8+</div>
+              <div className="text-sm text-muted-foreground">Years Experience</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold gradient-text">100+</div>
+              <div className="text-sm text-muted-foreground">Projects Completed</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold gradient-text">50+</div>
+              <div className="text-sm text-muted-foreground">Happy Clients</div>
+            </div>
           </div>
         </div>
       </div>

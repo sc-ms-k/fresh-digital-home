@@ -8,6 +8,15 @@ export interface Project {
   url: string;
 }
 
+export interface Experience {
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+  skills: string[];
+  progress: number;
+}
+
 export const projects: Project[] = [
   {
     id: 1,
@@ -57,6 +66,38 @@ export const projects: Project[] = [
     category: "Web App",
     url: "https://stagerunner.net/",
   },
+  {
+    id: 7,
+    title: "Quantum AI Dashboard",
+    description: "Advanced analytics dashboard for machine learning applications",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    category: "Web App",
+    url: "https://quantum-ai-platform.io/",
+  },
+  {
+    id: 8,
+    title: "Nexus Health",
+    description: "Mobile health tracking application with AI-driven insights",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    category: "Mobile App",
+    url: "https://nexus-health.app/",
+  },
+  {
+    id: 9,
+    title: "Fintech Revolution",
+    description: "Blockchain-based financial platform for international transactions",
+    image: "https://images.unsplash.com/photo-1605792657660-596af9009e82?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80",
+    category: "Blockchain",
+    url: "https://fintech-revolution.io/",
+  },
+  {
+    id: 10,
+    title: "EcoSync",
+    description: "IoT platform for environmental monitoring and sustainability",
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    category: "IoT",
+    url: "https://ecosync-platform.com/",
+  }
 ];
 
 export const skills = [
@@ -72,6 +113,41 @@ export const skills = [
   "Responsive Design",
   "Information Architecture",
   "User Research"
+];
+
+export const experiences: Experience[] = [
+  {
+    company: "TechNova Solutions",
+    role: "Senior Full Stack Engineer",
+    period: "2021 - Present",
+    description: "Led the development of enterprise-level web applications using React, Node.js, and AWS. Implemented microservices architecture and CI/CD pipelines. Mentored junior developers and conducted code reviews.",
+    skills: ["React", "Node.js", "TypeScript", "AWS", "Docker", "GraphQL"],
+    progress: 95
+  },
+  {
+    company: "Digital Frontier",
+    role: "Full Stack Developer",
+    period: "2018 - 2021",
+    description: "Developed and maintained complex web applications for clients in finance and healthcare sectors. Collaborated with UI/UX designers to implement responsive designs. Optimized database queries and application performance.",
+    skills: ["JavaScript", "MongoDB", "Express", "Vue.js", "RESTful APIs"],
+    progress: 90
+  },
+  {
+    company: "Innovative Startups Inc.",
+    role: "Frontend Developer",
+    period: "2016 - 2018",
+    description: "Created interactive user interfaces for early-stage startups. Implemented responsive designs and ensured cross-browser compatibility. Worked with agile development methodologies.",
+    skills: ["HTML5", "CSS3", "JavaScript", "jQuery", "Bootstrap"],
+    progress: 85
+  },
+  {
+    company: "CodeCraft Academy",
+    role: "Teaching Assistant",
+    period: "2015 - 2016",
+    description: "Assisted lead instructors in teaching web development bootcamps. Provided one-on-one mentoring to students. Created supplementary learning materials and coding exercises.",
+    skills: ["Teaching", "Mentoring", "Web Fundamentals", "Problem Solving"],
+    progress: 75
+  }
 ];
 
 export const services = [

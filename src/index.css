@@ -365,3 +365,109 @@
   background-position: right center;
   transform: translateZ(10px);
 }
+
+/* New 3D Progress bar animation */
+@keyframes progressGlow {
+  0% { box-shadow: 0 0 5px rgba(99, 102, 241, 0.5); filter: brightness(0.9); }
+  50% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.8); filter: brightness(1.2); }
+  100% { box-shadow: 0 0 5px rgba(99, 102, 241, 0.5); filter: brightness(0.9); }
+}
+
+@keyframes progressShine {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.progress-3d {
+  perspective: 800px;
+  transform-style: preserve-3d;
+}
+
+.progress-3d [role="progressbar"] {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  transform: translateZ(0) rotateX(0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.progress-3d [role="progressbar"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: progressShine 3s infinite;
+}
+
+.progress-3d-active [role="progressbar"] {
+  transform: translateZ(6px) rotateX(5deg);
+  animation: progressGlow 2s infinite;
+}
+
+/* Floating title animation */
+@keyframes floatTitle {
+  0% { transform: translateY(0) rotateX(0) rotateY(0); }
+  50% { transform: translateY(-10px) rotateX(2deg) rotateY(1deg); }
+  100% { transform: translateY(0) rotateX(0) rotateY(0); }
+}
+
+.floating-title {
+  animation: floatTitle 4s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced 3D buttons */
+.button-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.2s ease;
+}
+
+.button-3d:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.button-3d:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced robot animations */
+.robot-animated {
+  animation: robotFloat 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.8));
+}
+
+@keyframes robotFloat {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  25% { transform: translateY(-15px) rotate(5deg) scale(1.05); }
+  50% { transform: translateY(0) rotate(0deg) scale(1); }
+  75% { transform: translateY(15px) rotate(-5deg) scale(0.95); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+/* Enhanced planet animations */
+.planet-animated {
+  animation: planetRotate 20s linear infinite, planetFloat 10s ease-in-out infinite;
+  filter: drop-shadow(0 0 25px rgba(217, 70, 239, 0.9));
+}
+
+@keyframes planetRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes planetFloat {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.1); }
+  100% { transform: translateY(0) scale(1); }
+}

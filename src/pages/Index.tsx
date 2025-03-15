@@ -1,10 +1,10 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Portfolio from '@/components/Portfolio';
 import About from '@/components/About';
 import Services from '@/components/Services';
+import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import TransitionEffect from '@/components/TransitionEffect';
@@ -57,8 +57,8 @@ const Index: React.FC = () => {
           transition: transform 0.5s ease;
         `);
         
-        // Add hover effect
-        heading.addEventListener('mousemove', (e) => {
+        // Add hover effect and floating animation
+        const animateHeading = (e: MouseEvent) => {
           const rect = heading.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
@@ -67,11 +67,31 @@ const Index: React.FC = () => {
           const rotateY = (rect.width / 2 - x) / 20;
           
           heading.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-        });
+        };
         
-        heading.addEventListener('mouseleave', () => {
-          heading.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-        });
+        const resetHeading = () => {
+          // Don't completely reset, keep a subtle animation
+          const floatY = Math.sin(Date.now() / 2000) * 5;
+          heading.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(${floatY}px) translateZ(10px)`;
+        };
+        
+        // Apply floating animation to all headings
+        const floatHeading = () => {
+          if (!heading.matches(':hover')) {
+            const floatY = Math.sin(Date.now() / 2000) * 5;
+            const rotateX = Math.sin(Date.now() / 3000) * 1;
+            const rotateY = Math.sin(Date.now() / 3500) * 1;
+            
+            heading.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(${floatY}px) translateZ(10px)`;
+          }
+          requestAnimationFrame(floatHeading);
+        };
+        
+        heading.addEventListener('mousemove', animateHeading as EventListener);
+        heading.addEventListener('mouseleave', resetHeading);
+        
+        // Start the floating animation
+        floatHeading();
       });
     };
     
@@ -80,6 +100,13 @@ const Index: React.FC = () => {
 
     return () => {
       animatedElements.forEach((el) => observer.unobserve(el));
+      
+      // Clean up event listeners
+      const headings = document.querySelectorAll('h2, h3');
+      headings.forEach((heading) => {
+        heading.removeEventListener('mousemove', heading.onmousemove as EventListener);
+        heading.removeEventListener('mouseleave', heading.onmouseleave as EventListener);
+      });
     };
   }, []);
 
@@ -87,8 +114,8 @@ const Index: React.FC = () => {
     <div className="page-transition-wrapper">
       <TransitionEffect />
       
-      {/* Fireworks animation - increased frequency and size */}
-      <Fireworks frequency={0.2} particleCount={100} size={3} />
+      {/* Fireworks animation - increased frequency, size and visibility */}
+      <Fireworks frequency={0.4} particleCount={150} size={6} />
       
       {/* Global space elements animation - prominent on all pages */}
       <SpaceElements className="fixed" />
@@ -97,6 +124,7 @@ const Index: React.FC = () => {
       <main>
         <Hero />
         <Portfolio />
+        <Experience />
         <About />
         <Services />
         <Contact />
